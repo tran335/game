@@ -14,6 +14,7 @@
 
 #include "SampleKeyEventHandler.h"
 #include <d3d9types.h>
+#include "TileMap.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
-
+#define SCENE_SECTION_MAP	3
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
@@ -88,6 +89,23 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	}
 
 	CAnimations::GetInstance()->Add(ani_id, ani);
+}
+
+void CPlayScene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 5) return;
+	
+	int id = atoi(tokens[0].c_str());
+	const char* pathTmx = tokens[1].c_str();
+	int R = atoi(tokens[2].c_str());
+	int G = atoi(tokens[3].c_str());
+	int B = atoi(tokens[4].c_str());
+	string prefixPath = tokens[5].c_str();
+	
+	TileMap::GetInstance()->ReadFileTmx(pathTmx, id, D3DCOLOR_XRGB(R, G, B), prefixPath);
+	
 }
 
 /*
@@ -216,6 +234,7 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
+		if (line == "[MAP]") { section = SCENE_SECTION_MAP; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -225,6 +244,7 @@ void CPlayScene::Load()
 		{ 
 			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		}
 	}
 
@@ -260,16 +280,16 @@ void CPlayScene::Update(DWORD dt)
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }
 
 void CPlayScene::Render()
 {
+	TileMap::GetInstance()->RenderBackground();
 	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
-
+		objects[i]->Render();	
 }
 
 /*

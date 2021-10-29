@@ -5,6 +5,7 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
+ground.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -12,10 +13,10 @@ cloud.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	20	10
+0	33	1200
 
 # BRICKS
-1	0	148
+1	529	1055
 1	0	164
 
 1	0	180
@@ -56,9 +57,13 @@ cloud.txt
 2	300	10
 
 #Platform
-5	90	136	16	15	16	51000	52000	53000
-5	120	90	16	16	8	20001	20001	20001
+#5	90	136	16	15	16	51000	52000	53000
+#5	120	90	16	16	8	20001	20001	20001
+5	0	1248	48	48	176	61000	61000	61000
 
 #Portal 
 50	300	120	316	160	2
+[MAP]
+#id	.tmx	r	g	b	prefix
+80000	map/worldmap1-1/world-1-1-map.tmx	255	255	255	map/worldmap1-1/
 
