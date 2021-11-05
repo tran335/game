@@ -3,7 +3,7 @@
 
 TileMap* TileMap::__instance = NULL;
 
-void TileMap::ReadFileTmx(const char* pathTmx, int id, D3DCOLOR transColor, string prefixPath)
+void TileMap::ReadFileTmx(const char* pathTmx, int id, D3DCOLOR transColor, vector<LPGAMEOBJECT>& objects, string prefixPath)
 {
 
 	TiXmlDocument doc(pathTmx);
@@ -30,10 +30,10 @@ void TileMap::ReadFileTmx(const char* pathTmx, int id, D3DCOLOR transColor, stri
 			Layer* layer = new Layer(element);
 			layers.push_back(layer);
 		}
-		/*else if (elementName.compare("objectgroup") == 0)
+		else if (elementName.compare("objectgroup") == 0)
 		{
-			objectmap = new ObjectMap(element, objects);
-		}*/
+			objectMap = new ObjectMap(element, objects);
+		}
 		element = element->NextSiblingElement();
 	}
 }
@@ -42,8 +42,9 @@ void TileMap::RenderBackground()
 {
 	for (size_t i = 0; i < layers.size(); i++)
 	{
-		//if (layers[i]->GetName().compare("Background") != 0)
+		if (layers[i]->GetName().compare("Foreground") != 0){
 			layers[i]->Render();
+		}
 	}
 }
 
@@ -57,6 +58,7 @@ void TileMap::Clear()
 {
 	layer = NULL;
 	tileset = NULL;
+	objectMap = NULL;
 	for (int i = 0; i < layers.size(); i++) {
 		delete layers[i];
 	}

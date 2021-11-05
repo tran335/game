@@ -33,7 +33,7 @@ void TileSet::SplitImageToTile()
 		for (int j = 0; j < columns; j++)
 		{
 			CSprites::GetInstance()->Add(spriteId, tileHeight * j, tileWidth * i, tileHeight * (j + 1), tileWidth * (i + 1), texMap);
-			//DebugOut(L"ground: %d %d %d %d %d \n", spriteId, tileHeight * j, tileWidth * i, tileHeight * (j + 1), tileWidth * (i + 1));
+			
 			spriteId++;
 		}
 	}

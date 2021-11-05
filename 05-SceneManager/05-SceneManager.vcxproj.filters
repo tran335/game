@@ -102,6 +102,15 @@
     <ClCompile Include="TileSet.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="CGround.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -188,10 +197,27 @@
     <ClInclude Include="Layer.h">
       <Filter>Map</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="CGround.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\misc.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

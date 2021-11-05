@@ -104,7 +104,7 @@ void CPlayScene::_ParseSection_MAP(string line)
 	int B = atoi(tokens[4].c_str());
 	string prefixPath = tokens[5].c_str();
 	
-	TileMap::GetInstance()->ReadFileTmx(pathTmx, id, D3DCOLOR_XRGB(R, G, B), prefixPath);
+	TileMap::GetInstance()->ReadFileTmx(pathTmx, id, D3DCOLOR_XRGB(R, G, B), objects,prefixPath);
 	
 }
 
@@ -140,25 +140,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-
-	case OBJECT_TYPE_PLATFORM:
-	{
-
-		float cell_width = (float)atof(tokens[3].c_str());
-		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
-
-		obj = new CPlatform(
-			x, y,
-			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
-		);
-
-		break;
-	}
 
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -277,10 +258,9 @@ void CPlayScene::Update(DWORD dt)
 	player->GetPosition(cx, cy);
 
 	CGame *game = CGame::GetInstance();
-	cx -= game->GetBackBufferWidth() / 2;
+	cx -= game->GetBackBufferWidth()/3;
 	cy -= game->GetBackBufferHeight() / 2;
-
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	CGame::GetInstance()->SetCamPos(cx, cy/1.5);
 
 	PurgeDeletedObjects();
 }
@@ -288,8 +268,10 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	TileMap::GetInstance()->RenderBackground();
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();	
+	/*for (int i = 0; i < objects.size(); i++)
+		objects[i]->Render();*/
+	player->Render();
+	
 }
 
 /*

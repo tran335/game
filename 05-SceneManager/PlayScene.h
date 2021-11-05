@@ -14,9 +14,10 @@ class CPlayScene: public CScene
 {
 protected: 
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
+	//LPGAMEOBJECT player;		
 
 	vector<LPGAMEOBJECT> objects;
+	CMario* player;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
