@@ -2,6 +2,7 @@
 #include "CGround.h"
 #include "Ghost.h"
 #include "debug.h"
+#include "Coin.h"
 
 void GetInfoElement(TiXmlElement* element, int& objectId, float& x, float& y, float& width, float& height) {
 	element->QueryIntAttribute("id", &objectId);
@@ -37,6 +38,17 @@ ObjectMap::ObjectMap(TiXmlElement* objectGroupElement, vector<LPGAMEOBJECT>& obj
 		{
 			GetInfoElement(element, objectId, x, y, width, height);
 			obj = new CGhost(width, height);
+			obj->SetPosition(x, y);
+			objects.push_back(obj);
+			element = element->NextSiblingElement();
+		}
+	}
+	else if (name.compare("Coin") == 0)
+	{
+		while (element)
+		{
+			GetInfoElement(element, objectId, x, y, width, height);
+			obj = new CCoin(width, height);
 			obj->SetPosition(x, y);
 			objects.push_back(obj);
 			element = element->NextSiblingElement();

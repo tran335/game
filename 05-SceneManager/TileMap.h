@@ -8,11 +8,12 @@ class TileMap
 	vector<LPLAYER> layers;
 	TileSet* tileset;
 	ObjectMap* objectMap;
-	Layer* layer;
+	Layer* foregroundLayer;
 	
 public:
 	void ReadFileTmx(const char* pathTmx, int id, D3DCOLOR transColor, vector<LPGAMEOBJECT>& objects, string prefixPath);
 	void RenderBackground();
+	void RenderForeground();
 	static TileMap* GetInstance();
 	ObjectMap* GetObjectMap() { return objectMap; }
 	void Clear();

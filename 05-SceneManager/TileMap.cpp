@@ -29,6 +29,8 @@ void TileMap::ReadFileTmx(const char* pathTmx, int id, D3DCOLOR transColor, vect
 		{
 			Layer* layer = new Layer(element);
 			layers.push_back(layer);
+			if (layer->GetName().compare("Foreground") == 0)
+				foregroundLayer = layer;
 		}
 		else if (elementName.compare("objectgroup") == 0)
 		{
@@ -48,6 +50,11 @@ void TileMap::RenderBackground()
 	}
 }
 
+void TileMap::RenderForeground()
+{
+	foregroundLayer->Render();
+}
+
 TileMap* TileMap::GetInstance()
 {
 	if (__instance == NULL) __instance = new TileMap();
@@ -56,7 +63,7 @@ TileMap* TileMap::GetInstance()
 
 void TileMap::Clear()
 {
-	layer = NULL;
+	foregroundLayer = NULL;
 	tileset = NULL;
 	objectMap = NULL;
 	for (int i = 0; i < layers.size(); i++) {

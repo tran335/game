@@ -137,9 +137,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	/*case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;*/
 
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -260,6 +260,9 @@ void CPlayScene::Update(DWORD dt)
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth()/3;
 	cy -= game->GetBackBufferHeight() / 2;
+	if (cx < 0) {
+		cx = 0;
+	}
 	CGame::GetInstance()->SetCamPos(cx, cy/1.5);
 
 	PurgeDeletedObjects();
@@ -268,8 +271,9 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	TileMap::GetInstance()->RenderBackground();
-	/*for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();*/
+	TileMap::GetInstance()->RenderForeground();
+	for (int i = 0; i < objects.size(); i++)
+		objects[i]->Render();
 	player->Render();
 	
 }
