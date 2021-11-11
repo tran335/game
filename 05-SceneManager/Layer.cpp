@@ -36,6 +36,7 @@ void Layer::ImportData()
 }
 
 void Layer::Render()
+
 {	
 	for (int i = 0; i < height; i++)
 	{
@@ -43,7 +44,6 @@ void Layer::Render()
 		{
 			if (tile[i][j] != 0) 
 			{
-				
 				CSprites::GetInstance()->Get(tile[i][j])->Draw((float)j * TILE_SIZE, (float)i * TILE_SIZE);
 			}
 		}

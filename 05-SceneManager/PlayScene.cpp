@@ -140,7 +140,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	/*case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;*/
-
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		float r = (float)atof(tokens[3].c_str());
@@ -263,7 +263,7 @@ void CPlayScene::Update(DWORD dt)
 	if (cx < 0) {
 		cx = 0;
 	}
-	CGame::GetInstance()->SetCamPos(cx, cy/1.5);
+	CGame::GetInstance()->SetCamPos(cx, 550);
 
 	PurgeDeletedObjects();
 }

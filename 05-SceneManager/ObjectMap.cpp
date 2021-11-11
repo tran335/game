@@ -3,6 +3,8 @@
 #include "Ghost.h"
 #include "debug.h"
 #include "Coin.h"
+#include "Brick.h"
+#include "QuestionBrick.h"
 
 void GetInfoElement(TiXmlElement* element, int& objectId, float& x, float& y, float& width, float& height) {
 	element->QueryIntAttribute("id", &objectId);
@@ -10,7 +12,6 @@ void GetInfoElement(TiXmlElement* element, int& objectId, float& x, float& y, fl
 	element->QueryFloatAttribute("y", &y);
 	element->QueryFloatAttribute("width", &width);
 	element->QueryFloatAttribute("height", &height);
-	DebugOut(L"ground: %d \n", objectId);
 }
 ObjectMap::ObjectMap(TiXmlElement* objectGroupElement, vector<LPGAMEOBJECT>& objects)
 {
@@ -54,7 +55,32 @@ ObjectMap::ObjectMap(TiXmlElement* objectGroupElement, vector<LPGAMEOBJECT>& obj
 			element = element->NextSiblingElement();
 		}
 	}
-
+	else if (name.compare("Brick") == 0)
+	{
+		while (element)
+		{
+			GetInfoElement(element, objectId, x, y, width, height);
+			obj = new CBrick(width, height);
+			obj->SetPosition(x, y);
+			objects.push_back(obj);
+			element = element->NextSiblingElement();
+		}
+	}
+	else if (name.compare("QuestionBlocks") == 0)
+	{
+		while (element)
+		{
+			string typeName;
+			int type;
+			GetInfoElement(element, objectId, x, y, width, height);
+			typeName = element->Attribute("name");
+			element->QueryIntAttribute("type", &type);
+			obj = new CQuestionBrick(width, height);
+			obj->SetPosition(x, y);
+			objects.push_back(obj);
+			element = element->NextSiblingElement();
+		}
+	}
 
 }
 

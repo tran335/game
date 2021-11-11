@@ -17,5 +17,5 @@ void CGhost::GetBoundingBox(float& l, float& t, float& r, float& b)
 	l = x-22;
 	t = y-22;
 	r = x + width;
-	b = y + height-48;
+	b = y + 10;
 }
