@@ -9,13 +9,13 @@ CGhost::CGhost(float w, float h)
 
 void CGhost::Render()
 {
-
+	//RenderBoundingBox();
 }
 
 void CGhost::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x-22;
-	t = y-22;
-	r = x + width;
-	b = y + 10;
+	l = x - GHOST_BBOX_WIDTH / 2;
+	t = y - GHOST_BBOX_HEIGHT / 2;
+	r = l +	width;
+	b = t + height;
 }

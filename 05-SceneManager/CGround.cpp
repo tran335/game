@@ -14,8 +14,8 @@ CGround::CGround(float w, float h)
 
 void CGround::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x-23;
-	t = y-23;
-	r = x + width;
-	b = y + height;
+	l = x - GROUND_BBOX_WIDTH/2;
+	t = y - GROUND_BBOX_HEIGHT/2;
+	r = l + width;
+	b = t + height;
 }
